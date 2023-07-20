@@ -1,0 +1,26 @@
+[09-Jun-2023 07:28:44 UTC] PHP Warning:  include(./config/Database.php): failed to open stream: No such file or directory in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 3
+[09-Jun-2023 07:28:44 UTC] PHP Warning:  include(./config/Database.php): failed to open stream: No such file or directory in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 3
+[09-Jun-2023 07:28:44 UTC] PHP Warning:  include(): Failed opening './config/Database.php' for inclusion (include_path='.:/opt/alt/php73/usr/share/pear') in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 3
+[09-Jun-2023 07:28:44 UTC] PHP Fatal error:  Uncaught Error: Class 'Database' not found in /home/mysports/public_html/msa_organizer_api/login/Login.php:5
+Stack trace:
+#0 {main}
+  thrown in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 5
+[09-Jun-2023 07:29:15 UTC] PHP Notice:  Undefined property: Database::$connect in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 7
+[09-Jun-2023 07:30:23 UTC] PHP Recoverable fatal error:  Object of class PDO could not be converted to string in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 9
+[09-Jun-2023 07:33:15 UTC] PHP Recoverable fatal error:  Object of class PDO could not be converted to string in /home/mysports/public_html/msa_organizer_api/config/Database.php on line 19
+[09-Jun-2023 07:57:52 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 20
+[09-Jun-2023 08:12:22 UTC] PHP Notice:  Undefined index: user_type in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 15
+[09-Jun-2023 08:12:22 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 20
+[09-Jun-2023 08:12:56 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 19
+[09-Jun-2023 08:13:11 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/mysports/public_html/msa_organizer_api/login/Login.php on line 19
+[09-Jun-2023 09:05:00 UTC] PHP Warning:  count(): Parameter must be an array or an object that implements Countable in /home/mysports/public_html/msa_organizer_api/api/Tournaments.php on line 19
+[09-Jun-2023 09:17:13 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/mysports/public_html/msa_organizer_api/api/Tournaments.php on line 52
+[09-Jun-2023 09:18:01 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/mysports/public_html/msa_organizer_api/api/Tournaments.php on line 53
+[09-Jun-2023 09:18:05 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/mysports/public_html/msa_organizer_api/api/Tournaments.php on line 53
+[09-Jun-2023 09:19:56 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/mysports/public_html/msa_organizer_api/api/Tournaments.php on line 41
+[09-Jun-2023 10:22:48 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/mysports/public_html/msa_organizer_api/api/Tournament_court.php on line 19
+[09-Jun-2023 10:28:15 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, bool given in /home/mysports/public_html/msa_organizer_api/api/Tournament_court.php on line 19
+[17-Jun-2023 09:44:35 UTC] PHP Notice:  Undefined index: tournament_id in /home/mysports/public_html/msa_organizer_api/api/Tournament_court.php on line 13
+[17-Jun-2023 09:44:35 UTC] PHP Notice:  Undefined index: category_id in /home/mysports/public_html/msa_organizer_api/api/Tournament_court.php on line 14
+[17-Jun-2023 09:44:35 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, object given in /home/mysports/public_html/msa_organizer_api/api/Tournament_court.php on line 18
+[17-Jun-2023 09:44:35 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/mysports/public_html/msa_organizer_api/api/Tournament_court.php on line 19
