@@ -1559,6 +1559,32 @@ class TournamentOrganizer{
 		}
 	}
 	/*------------------------------STORE TOURNAMENT UPI DETAIL------------------------------------------ */
+	
+	/*------------------------------GET TOURNAMENT UPI DETAIL--------------------------------------------*/
+	public function getTournamentUpiDetail($data){
+		
+		$error = new ArrayObject();
+		if(!isset($data->tournament_id) || $data->tournament_id == NULL){
+			$error->append('Please enter tournament id.');
+		}		
+
+		if(sizeof($error) > 0){
+			return ['error'=>$error];
+		}else{
+			$tournament_id = $this->validate($data->tournament_id);
+			$stmt = $this->conn->prepare("SELECT tournament_upi_details.*,tournament_details.tournament_name FROM tournament_upi_details LEFT JOIN tournament_details ON tournament_details.id = tournament_upi_details.tournament_details_id WHERE tournament_upi_details.tournament_details_id=(:tournament_id)");
+			$stmt->bindParam(":tournament_id",$tournament_id , PDO::PARAM_INT);
+			$stmt->execute();
+			if ($stmt->rowCount() > 0){
+				$row = $stmt->fetch(PDO::FETCH_ASSOC);
+				$row['qrcode'] = $_SERVER['DOCUMENT_ROOT']."/msa/playtournament/images/" . $row['qrcode'];
+				return ['error'=>NULL,'data'=>$row];				
+			}else{
+				return ['error'=>NULL,'data'=>''];
+			}
+		}
+	}
+	/*------------------------------GET TOURNAMENT UPI DETAIL--------------------------------------------*/
 
 
 
