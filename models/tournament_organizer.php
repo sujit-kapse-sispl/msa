@@ -1587,6 +1587,83 @@ class TournamentOrganizer{
 	/*------------------------------GET TOURNAMENT UPI DETAIL--------------------------------------------*/
 
 
+	/*------------------------------STORE SCHOOL AUTHORIZATION CERTIFICATE DETAIL-------------------------*/
+	public function storeSchoolAuthorizationCertificateDetail($data){
+		$error = new ArrayObject();
+		if(!isset($data->tournament_id) || $data->tournament_id == NULL){
+			$error->append('Please enter tournament id.');
+		}	
+		
+		if(!isset($data->certificate) || $data->certificate == NULL){
+			$error->append('Please enter certificate.');
+		}
+
+		if(sizeof($error) > 0){
+			return ['error'=>$error];
+		}else{
+			$stmt = $this->conn->prepare("UPDATE tournament_details SET sch_auth_certificate=(:certificate)  WHERE id=(:tournament_id)");
+			$stmt->bindParam(":certificate",$data->certificate,PDO::PARAM_INT);
+			$stmt->bindParam(":tournament_id",$data->tournament_id,PDO::PARAM_INT);
+			$stmt->execute();
+			return ['error'=>NULL,'data'=>'success'];
+		}
+	}
+	/*------------------------------STORE SCHOOL AUTHORIZATION CERTIFICATE DETAIL--------------------------*/
+
+
+	/*------------------------------GET TOURANAMENT WHATS APP LINK-----------------------------------------*/
+	public function getTournamentWhatsAppDetail($data){
+		$error = new ArrayObject();
+ 		if(!isset($data->tournament_id) || $data->tournament_id == NULL){
+			$error->append('Please enter tournament id.');
+		}	
+		
+		if(sizeof($error) > 0){
+			return ['error'=>$error];
+		}else{
+			$arr = [];
+
+			//get tournament details
+			$td_stmt = $this->conn->prepare("SELECT tournament_name,t_start_date,t_end_date FROM tournament_details WHERE id=(:tournament_id)");
+			$td_stmt->bindParam(":tournament_id",$data->tournament_id,PDO::PARAM_INT);
+			$td_stmt->execute();
+			if ($td_stmt->rowCount() > 0){
+				$td_row = $td_stmt->fetch(PDO::FETCH_ASSOC);
+				$arr['tournament_name'] = $td_row['tournament_name'];
+				$arr['t_start_date'] = $td_row['t_start_date'];
+				$arr['t_end_date'] = $td_row['t_end_date'];
+			}
+
+			//get tournament venue details
+			$tv_stmt = $this->conn->prepare("SELECT venue_name FROM tournament_venues WHERE tournament_details_id=(:tournament_id)");
+			$tv_stmt->bindParam(":tournament_id",$data->tournament_id,PDO::PARAM_INT);
+			$tv_stmt->execute();
+			if ($tv_stmt->rowCount() > 0){
+				$tv_row = $tv_stmt->fetch(PDO::FETCH_ASSOC);
+				$arr['venue_name'] = $tv_row['venue_name'];
+			}
+
+			// get tournament category details
+			$tc_stmt = $this->conn->prepare("SELECT subcat.subcategory_name FROM `tournament_categories` tc LEFT JOIN tournament_subcategory_master_table subcat on tc.subcategory_id=subcat.id WHERE tc.tournament_details_id=(:tournament_id)");
+			$tc_stmt->bindParam(":tournament_id",$data->tournament_id,PDO::PARAM_INT);
+			$tc_stmt->execute();
+			if ($tc_stmt->rowCount() > 0){
+				$cat_list = [];
+				while($tc_row = $tc_stmt->fetch(PDO::FETCH_ASSOC)){
+					$cat_list[] = $tc_row['subcategory_name'];
+				}				
+				$arr['subcategory_name'] = implode(",",$cat_list);
+			}
+			$tournament_url = "https://www.mysportsarena.com/sportsbook/views/profile/cat_selection.php?t_id=".$data->tournament_id;
+			$message = "Tournament Name : ".$arr['tournament_name']."%0A Tournament Date : ".$arr['t_start_date']." to ".$arr['t_end_date']."%0A Tournament Venue : ".$arr['venue_name']."%0A Tournament Categories : ".$arr['subcategory_name']."%0A Tournament Registration URL : ". $tournament_url."%0A";
+			$whats_app_link = "whatsapp://send?text=".$message;
+
+			return ['error'=>NULL,'data'=>['tournament_url'=>$tournament_url,'whats_app_link'=>$whats_app_link]];
+		}
+	}
+	/*------------------------------GET TOURANAMENT WHATS APP LINK-----------------------------------------*/
+
+
 
 }
 ?>
